@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 
+app.use(cors())
+
 router.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Credentials", "true");
