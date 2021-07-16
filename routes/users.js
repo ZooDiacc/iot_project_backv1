@@ -3,8 +3,16 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
-
+app.use(cors())
+router.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+});
 
 
 
@@ -21,14 +29,14 @@ router.get('/auth/register', forwardAuthenticated, (req, res) => res.render('reg
 
 // Register
 router.post('/auth/register', (req, res) => {
-    const { name,lastname, email, password, password2 } = req.body;
+    const { name,lastname, email, password, comfirmPassword } = req.body;
     let errors = [];
 
-    if (!name || !email || !password || !password2) {
+    if (!name || !email || !password || !comfirmPassword) {
         errors.push({ msg: 'Please enter all fields' });
     }
 
-    if (password != password2) {
+    if (password != comfirmPassword) {
         errors.push({ msg: 'Passwords do not match' });
     }
 
@@ -43,7 +51,7 @@ router.post('/auth/register', (req, res) => {
             lastname,
             email,
             password,
-            password2
+            comfirmPassword
         });
     } else {
         User.findOne({ email: email }).then(user => {
@@ -55,7 +63,7 @@ router.post('/auth/register', (req, res) => {
                     lastname,
                     email,
                     password,
-                    password2
+                    comfirmPassword
                 });
             } else {
                 const newUser = new User({
