@@ -21,7 +21,7 @@ router.get('/auth/register', forwardAuthenticated, (req, res) => res.render('reg
 
 // Register
 router.post('/auth/register', (req, res) => {
-    const { name, email, password, password2 } = req.body;
+    const { name,lastname, email, password, password2 } = req.body;
     let errors = [];
 
     if (!name || !email || !password || !password2) {
@@ -40,6 +40,7 @@ router.post('/auth/register', (req, res) => {
         res.status(500).json({
             errors,
             name,
+            lastname,
             email,
             password,
             password2
@@ -51,6 +52,7 @@ router.post('/auth/register', (req, res) => {
                 res.render('register', {
                     errors,
                     name,
+                    lastname,
                     email,
                     password,
                     password2
@@ -58,6 +60,7 @@ router.post('/auth/register', (req, res) => {
             } else {
                 const newUser = new User({
                     name,
+                    lastname,
                     email,
                     password
                 });
@@ -98,7 +101,7 @@ router.post('/login', async(req, res, next) => {
 
                         if (result) {
 
-                            const newtoken = jwt.sign({ name: user.name, email: user.email }, "ELYAS", { expiresIn: 86400 })
+                            const newtoken = jwt.sign({ name: user.name,lastname, email: user.email }, "ELYAS", { expiresIn: 86400 })
                             const verify = jwt.verify(newtoken, "ELYAS");
                             console.log("CRYPTé", newtoken)
                             console.log("no crypté", verify)
