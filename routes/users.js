@@ -32,7 +32,7 @@ router.post('/auth/register', (req, res) => {
     const { name,lastname, email, password, comfirmPassword } = req.body;
     let errors = [];
 
-    if (!name || !email || !password || !comfirmPassword) {
+    if (!name ||!lastname || !email || !password || !comfirmPassword) {
         errors.push({ msg: 'Please enter all fields' });
     }
 

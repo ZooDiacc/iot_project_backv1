@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://zoodiac:<password>@cluster0.v1ajs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://zoodiac:<freebox1>@cluster0.v1ajs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "baseUrl": "https://iot-project-hetic.herokuapp.com/"
 }
